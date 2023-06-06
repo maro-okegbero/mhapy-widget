@@ -165,6 +165,10 @@
       return decodeURIComponent(name[1]);
 }
 
+   const urlParams = new URLSearchParams(window.location.search);
+    const url = window.location.href
+    const api_token = new URL(url).searchParams.get('api_key');
+
     const chatbotIcon = document.getElementById('chatbot-icon');
     const chatbotWidget = document.getElementById('chatbot-widget');
     const closeButton = document.getElementById('chatbot-close-btn');
@@ -173,7 +177,7 @@
     const input = document.getElementById('chatbot-input');
     const sendButton = document.getElementById('chatbot-send-btn');
     const apiUrl = 'https://mahppy-apis.nn.r.appspot.com/api/v1/send';
-    const api_token = get_param("api_key");
+    console.log("Token...................................................")
     // const api_token = '{{ request.GET.api_key|escapejs }}';
     let widgetOpenCount = 0;
 
@@ -601,7 +605,6 @@
          sendMessageToChatbot({
           text: buttons[i],
         });
-          {#buttonsDiv.remove();#}
         });
         button.style.margin = '5px';
         buttonsDiv.appendChild(button);
