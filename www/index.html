@@ -63,7 +63,14 @@
     padding: 0.5rem;
   }
 
+
+  #chatbot-messages-container {
+    height: 350px;
+    padding: 10px;
+  }
+
   @media (max-width: 768px) {
+
     #chatbot-widget {
       position: fixed;
       display: none;
@@ -92,6 +99,12 @@
 
     #chatbot-header {
       border-radius: 0px;
+    }
+
+    #chatbot-messages-container {
+      height: calc(100vh - 240px);
+      padding-bottom: 50px;
+
     }
   }
 </style>
@@ -131,7 +144,7 @@
         </div>
       </div>
     </div>
-    <div id="chatbot-messages-container" style="overflow-y: scroll; height: 350px; padding: 10px;">
+    <div id="chatbot-messages-container" style="overflow-y: scroll;">
     </div>
     <div id="chatbot-input-wrapper">
       <div style="display: flex; flex-direction: row; background: #F1F1F1; padding: 0.5rem; border-radius: 8px;">
@@ -160,15 +173,14 @@
   <script>
     // Your JavaScript code goes here
 
-    function get_param(name){
-   if(name === (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
-      return decodeURIComponent(name[1]);
-}
+    function get_param(name) {
+      if (name === (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+        return decodeURIComponent(name[1]);
+    }
 
-   const urlParams = new URLSearchParams(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     const url = window.location.href
     const api_token = new URL(url).searchParams.get('api_key');
-
     const chatbotIcon = document.getElementById('chatbot-icon');
     const chatbotWidget = document.getElementById('chatbot-widget');
     const closeButton = document.getElementById('chatbot-close-btn');
@@ -195,8 +207,8 @@
     const sessionId = generateUUID();
     let patient_email = "";
 
-    function preparePayload(message){
-        return {text: message}
+    function preparePayload(message) {
+      return { text: message }
     }
 
 
@@ -411,24 +423,24 @@
           emailDiv.innerText = `Thank you for your email: ${patient_email}`;
           input.value = ""
 
-            messageDiv.style.display = "none";
-            input.style.display = "none";
-            button.style.display = "none";
-            emailDiv.style.display = "none";
+          messageDiv.style.display = "none";
+          input.style.display = "none";
+          button.style.display = "none";
+          emailDiv.style.display = "none";
 
-           // Create a new div for the thank you message
-         thankYouDiv.style.display = "block";
-        thankYouDiv.innerText = 'Thank you for submitting your email';
-        thankYouDiv.style.marginTop = '10px';
+          // Create a new div for the thank you message
+          thankYouDiv.style.display = "block";
+          thankYouDiv.innerText = 'Thank you for submitting your email';
+          thankYouDiv.style.marginTop = '10px';
 
 
 
-        // Hide the thankYouDiv after 5 seconds
-        setTimeout(() => {
-          thankYouDiv.style.display = 'none';
-        }, 5000);
+          // Hide the thankYouDiv after 5 seconds
+          setTimeout(() => {
+            thankYouDiv.style.display = 'none';
+          }, 5000);
 
-            }
+        }
       });
 
       messagesContainer.appendChild(messageParentDiv);
@@ -461,9 +473,9 @@
 
           } else {
             // Handle text response
-            data.bot_response.texts.forEach(element =>{
-                addMessage(element, 'bot')
-                }
+            data.bot_response.texts.forEach(element => {
+              addMessage(element, 'bot')
+            }
             );
             // Handle buttons response
             handleButtons(data.bot_response.buttons);
@@ -505,7 +517,7 @@
         messagesContainer.appendChild(optionTwoButton);
       }
 
-        if (currentQuestion.option_three) {
+      if (currentQuestion.option_three) {
         const optionThreeButton = createButton(currentQuestion.option_three, () => {
           questionAnswers.push({ question_id: currentQuestion.pk, answer: currentQuestion.option_three });
           handleNextQuestion(questions.slice(1), questionAnswers);
@@ -513,7 +525,7 @@
         messagesContainer.appendChild(optionThreeButton);
       }
 
-        if (currentQuestion.option_four) {
+      if (currentQuestion.option_four) {
         const optionFourButton = createButton(currentQuestion.option_four, () => {
           questionAnswers.push({ question_id: currentQuestion.pk, answer: currentQuestion.option_four });
           handleNextQuestion(questions.slice(1), questionAnswers);
@@ -521,7 +533,7 @@
         messagesContainer.appendChild(optionFourButton);
       }
 
-        if (currentQuestion.option_five) {
+      if (currentQuestion.option_five) {
         const optionFiveButton = createButton(currentQuestion.option_five, () => {
           questionAnswers.push({ question_id: currentQuestion.pk, answer: currentQuestion.option_five });
           handleNextQuestion(questions.slice(1), questionAnswers);
@@ -548,14 +560,14 @@
         console.log(nextQuestion.pk)
         if (nextQuestion.option_one) {
           const optionOneButton = createButton(nextQuestion.option_one, () => {
-            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_one});
+            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_one });
             handleNextQuestion(questions.slice(1), questionAnswers);
           });
           messagesContainer.appendChild(optionOneButton);
         }
         if (nextQuestion.option_two) {
           const optionTwoButton = createButton(nextQuestion.option_two, () => {
-            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_two});
+            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_two });
             handleNextQuestion(questions.slice(1), questionAnswers);
           });
           messagesContainer.appendChild(optionTwoButton);
@@ -563,31 +575,31 @@
 
         if (nextQuestion.option_three) {
           const optionThreeButton = createButton(nextQuestion.option_three, () => {
-            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_three});
+            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_three });
             handleNextQuestion(questions.slice(1), questionAnswers);
           });
           messagesContainer.appendChild(optionThreeButton);
         }
 
-      if (nextQuestion.option_four) {
-      const optionFourButton = createButton(nextQuestion.option_four, () => {
-        questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_four});
-        handleNextQuestion(questions.slice(1), questionAnswers);
-      });
-      messagesContainer.appendChild(optionFourButton);
-    }
+        if (nextQuestion.option_four) {
+          const optionFourButton = createButton(nextQuestion.option_four, () => {
+            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_four });
+            handleNextQuestion(questions.slice(1), questionAnswers);
+          });
+          messagesContainer.appendChild(optionFourButton);
+        }
 
 
-   if (nextQuestion.option_five) {
-  const optionFiveButton = createButton(nextQuestion.option_five, () => {
-    questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_five});
-    handleNextQuestion(questions.slice(1), questionAnswers);
-  });
-  messagesContainer.appendChild(optionFiveButton);
-}
+        if (nextQuestion.option_five) {
+          const optionFiveButton = createButton(nextQuestion.option_five, () => {
+            questionAnswers.push({ question_id: nextQuestion.pk, answer: nextQuestion.option_five });
+            handleNextQuestion(questions.slice(1), questionAnswers);
+          });
+          messagesContainer.appendChild(optionFiveButton);
+        }
 
       } else {
-         sendMessageToChatbot({
+        sendMessageToChatbot({
           question_answers: questionAnswers,
         }); // send questionAnswers to API
 
@@ -600,11 +612,13 @@
       buttonsDiv.style.flexWrap = 'wrap';
       buttonsDiv.style.marginTop = '10px';
       buttonsDiv.style.justifyContent = 'center';
+
       for (let i = 0; i < buttons.length; i++) {
         const button = createButton(buttons[i], () => {
-         sendMessageToChatbot({
-          text: buttons[i],
-        });
+          console.log(buttons[i])
+          sendMessageToChatbot({
+            text: buttons[i],
+          });
         });
         button.style.margin = '5px';
         buttonsDiv.appendChild(button);
@@ -620,11 +634,16 @@
       button.style.padding = '10px';
       button.style.borderRadius = '8px';
       button.style.backgroundColor = '#fff';
-      button.style.color = '#451891';
+      button.style.color = '#000000';
       button.style.border = 'none';
       button.style.cursor = 'pointer';
+      button.style.backgroundColor = '#d1d5db'
       button.innerText = text;
-      button.addEventListener('click', onClick);
+      button.addEventListener('click', () => {
+        onClick();
+        button.style.backgroundColor = '#451891'
+        button.style.color = '#fff'
+      });
       return button;
     }
   </script>
