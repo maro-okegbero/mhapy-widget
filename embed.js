@@ -60,6 +60,8 @@ window.addEventListener("load", () => {
         // When a message is received, do the following:
         window.addEventListener(e, function (ev) {
             // Check if the message came from the expected source (origin).
+            console.log("Received a message:", ev.data);
+            console.log("Message sent from:", ev.origin);
             if (ev.origin != o) return;
 
             // Find the box on the webpage using its id.
