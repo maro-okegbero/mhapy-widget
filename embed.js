@@ -77,7 +77,7 @@ window.addEventListener("load", () => {
             }
         }, false);
 
-    })("message", "https://widget.mhapy.com/", "edenai-message-iframe-container", "hide", "show", "96px", "100px", "670px", "400px");
+    })("message", "https://widget.mhapy.com/", "edenai-message-iframe-container", "hide", "show", "662px", "333px", "670px", "400px");
     // The above line is where the function is called with specific values.
 
 });
