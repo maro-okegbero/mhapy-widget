@@ -32,7 +32,7 @@ window.addEventListener("load", () => {
         p.id = i;
 
         // Set some styles for the div element to make it look a certain way.
-        p.style = "position: fixed; z-index: 123456789; right: 10px; bottom: 0; height: 96px; width: 100px; min-height: 96px; min-width: 100px";
+        p.style = "position: fixed; z-index: 123456789; right: 10px; bottom: 0; height: 662px; width: 333px; min-height: 96px; min-width: 100px";
 
         // Create a new "iframe" element (a little window inside the box).
         let m = document.createElement(f);
