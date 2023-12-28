@@ -21,11 +21,15 @@ jobs:
       - name: Set up Google Cloud CLI
         uses: google-github-actions/setup-gcloud@v1
         with:
-          python-version: '3.9'
-          version: '345.0.0'  # Use the latest version available
+          version: 'latest'  # Use the latest version available
           project_id: ${{ secrets.GCP_PROJECT_ID }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-          export_default_credentials: true
+          
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
+        with:
+          credentials: ${{ secrets.GCLOUD_AUTH }}
+
 
       - name: Deploy to App Engine
         run: |
