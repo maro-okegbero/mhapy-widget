@@ -125,21 +125,22 @@
 
           <div style="display: flex; align-items: center; justify-content: center; flex: 1; margin-bottom: 0.5rem;">
             <div style="display: flex; align-items: center; justify-content: center; margin-left: -33px;">
-              <div style="width: 20px; height: 20px; border-radius: 50%;">
-                <img src="img/bot-icon.svg" alt="bot-icon"
+              <div id="chatbot-logo" style="width: 20px; height: 20px; border-radius: 50%;">
+                <img id="chatbot_image" src="img/bot-icon.svg" alt="bot-icon"
                   style="object-fit: cover; width: 100%; height: 100%;  border-radius: 50%;">
               </div>
-              <span style="font-weight: 500; margin-left: 0.5rem;">Ruby</span>
+
+              <span id="chatbot-name"  style="font-weight: 500; margin-left: 0.5rem;">Ruby</span>
             </div>
           </div>
         </div>
 
-        <div>
+        <div id="chatbot-welcome-address">
 
           <p style="color: rgb(249 250 251); text-align: center; font-size: 12px; padding-bottom: 0.5rem;">
             Hi there 👋 <br />
             I am here to help, if you close the chatbot, you will receive a response via email. Be sure to share your
-            email so we can better assist you."
+            email so we can better assist you.
           </p>
         </div>
       </div>
@@ -181,17 +182,39 @@
     const urlParams = new URLSearchParams(window.location.search);
     const url = window.location.href
     const api_token = new URL(url).searchParams.get('api_key');
+    const param_color = new URL(url).searchParams.get('custom_color');
+    const custom_color = param_color ? param_color : '#451891';
+    const param_welcome_address = new URL(url).searchParams.get('welcome_address');
+    const welcome_address = param_welcome_address ? param_welcome_address : 'Hi there 👋 <br />\n' +
+            '            I am here to help, if you close the chatbot, you will receive a response via email. Be sure to share your\n' +
+            '            email so we can better assist you.';
+    const param_name = new URL(url).searchParams.get('custom_name');
+    const custom_name = param_name ? param_name : "Ruby";
+    const param_logo = new URL(url).searchParams.get('custom_logo');
+    const custom_logo = param_logo ? param_logo : "img/bot-icon.svg";
     const chatbotIcon = document.getElementById('chatbot-icon');
     const chatbotWidget = document.getElementById('chatbot-widget');
+    const chatbotHeader = document.getElementById('chatbot-header');
+    const chatbotSendButton = document.getElementById('chatbot-send-btn');
+    const chatbotWelcomeAddress = document.getElementById('chatbot-welcome-address');
+    const chatbotImage = document.getElementById('chatbot_image');
+    const chatbotName = document.getElementById('chatbot-name');
     const closeButton = document.getElementById('chatbot-close-btn');
     const messagesContainer = document.getElementById('chatbot-messages-container');
-    const welcomeMessage = document.getElementById('chatbot-welcome-message');
     const input = document.getElementById('chatbot-input');
     const sendButton = document.getElementById('chatbot-send-btn');
     const apiUrl = 'https://mahppy-apis.nn.r.appspot.com/api/v1/send';
     console.log("Token...................................................")
     // const api_token = '{{ request.GET.api_key|escapejs }}';
     let widgetOpenCount = 0;
+
+    chatbotHeader.style.backgroundColor = custom_color
+    chatbotSendButton.style.backgroundColor = custom_color
+    chatbotIcon.style.backgroundColor = custom_color
+    chatbotWelcomeAddress.innerText = welcome_address
+    chatbotName.innerText = custom_name
+    chatbotImage.src = custom_logo
+
 
     function generateUUID() {
       let uuid = '', i, random;
@@ -291,7 +314,7 @@
       iconDiv.style.width = '25px';
       iconDiv.style.height = '25px';
       iconDiv.style.marginRight = '5px';
-      iconDiv.style.border = '1px solid #451891';
+      iconDiv.style.border = '1px solid ${custom_color}';
       iconDiv.style.borderRadius = '50%';
       iconDiv.style.flex = 'none';
 
@@ -306,7 +329,7 @@
       const messageDiv = document.createElement('div');
       messageDiv.style.padding = '0.5rem';
       messageDiv.style.borderRadius = '8px';
-      messageDiv.style.backgroundColor = sender === 'user' ? '#eee' : '#451891';
+      messageDiv.style.backgroundColor = sender === 'user' ? '#eee' : custom_color;
       messageDiv.style.color = sender === 'user' ? '#333' : '#fff';
       messageDiv.innerText = message;
 
@@ -383,7 +406,7 @@
       messageDiv.style.marginBottom = '10px';
       messageDiv.style.padding = '0.5rem';
       messageDiv.style.borderRadius = '8px';
-      messageDiv.style.backgroundColor = '#451891';
+      messageDiv.style.backgroundColor = custom_color;
       messageDiv.style.color = '#ffffff';
       messageDiv.style.maxWidth = '80%';
       messageDiv.style.wordWrap = 'break-word';
@@ -403,7 +426,7 @@
       button.style.marginTop = '5px';
       button.style.padding = '0.5rem';
       button.style.borderRadius = '8px';
-      button.style.backgroundColor = '#451891';
+      button.style.backgroundColor = custom_color;
       button.style.color = '#fff';
       button.style.border = 'none';
       button.style.cursor = 'pointer';
@@ -494,7 +517,7 @@
       questionDiv.style.marginBottom = '10px';
       questionDiv.style.padding = '10px';
       questionDiv.style.borderRadius = '8px';
-      questionDiv.style.backgroundColor = '#451891';
+      questionDiv.style.backgroundColor = custom_color;
       questionDiv.style.color = '#fff';
       questionDiv.style.maxWidth = '80%';
       questionDiv.style.wordWrap = 'break-word';
@@ -549,7 +572,7 @@
         nextQuestionDiv.style.marginBottom = '10px';
         nextQuestionDiv.style.padding = '10px';
         nextQuestionDiv.style.borderRadius = '8px';
-        nextQuestionDiv.style.backgroundColor = '#451891';
+        nextQuestionDiv.style.backgroundColor = custom_color;
         nextQuestionDiv.style.color = '#fff';
         nextQuestionDiv.style.maxWidth = '80%';
         nextQuestionDiv.style.wordWrap = 'break-word';
@@ -641,7 +664,7 @@
       button.innerText = text;
       button.addEventListener('click', () => {
         onClick();
-        button.style.backgroundColor = '#451891'
+        button.style.backgroundColor = custom_color
         button.style.color = '#fff'
       });
       return button;
