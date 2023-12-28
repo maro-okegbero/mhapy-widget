@@ -13,24 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
-
-      - name: Set up Google Cloud CLI
-        uses: google-github-actions/setup-gcloud@v1
-        with:
-          version: 'latest'  # Use the latest version available
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.GCP_SA_KEY }}
-          
-      - name: Authenticate with Google Cloud
-        uses: google-github-actions/auth@v1
-        with:
-          credentials: ${{ secrets.GCLOUD_AUTH }}
-
-
       - name: Deploy to App Engine
-        run: |
-          gcloud app deploy app.yaml --quiet
+        id: deploy
+        uses: google-github-actions/deploy-appengine@v0.2.0
+        with:
+          deliverables: app.yaml
+          version: v1
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          credentials: ${{ secrets.GCP_SA_KEY }}
+
+      
+    
