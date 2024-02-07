@@ -183,15 +183,15 @@
     const url = window.location.href
     const api_token = new URL(url).searchParams.get('api_key');
     const param_color = new URL(url).searchParams.get('custom_color');
-    const custom_color = param_color ? param_color : '#451891';
+    const custom_color = (param_color && param_color !== "None") ? param_color : '#451891';
     const param_welcome_address = new URL(url).searchParams.get('welcome_address');
-    const welcome_address = param_welcome_address ? param_welcome_address : 'Hi there 👋 <br />\n' +
+    const welcome_address = (param_welcome_address && param_welcome_address !== "None") ? param_welcome_address : 'Hi there 👋 <br />\n' +
             '            I am here to help, if you close the chatbot, you will receive a response via email. Be sure to share your\n' +
             '            email so we can better assist you.';
     const param_name = new URL(url).searchParams.get('custom_name');
-    const custom_name = param_name ? param_name : "Ruby";
+    const custom_name = (param_name && param_name !== "None") ? param_name : "Ruby";
     const param_logo = new URL(url).searchParams.get('custom_logo');
-    const custom_logo = param_logo ? param_logo : "img/bot-icon.svg";
+    const custom_logo = (param_logo && param_logo !== "None") ? param_logo : "img/bot-icon.svg";
     const chatbotIcon = document.getElementById('chatbot-icon');
     const chatbotWidget = document.getElementById('chatbot-widget');
     const chatbotHeader = document.getElementById('chatbot-header');
