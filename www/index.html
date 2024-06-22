@@ -493,7 +493,7 @@
           if (data.bot_response.questions.length > 0) {
             // Handle questions
             handleQuestions(data.bot_response.questions);
-            addMessage('Well Done! Thanks for answering the questions.', 'bot');
+
 
           } else {
             // Handle text response
@@ -625,8 +625,8 @@
       } else {
         sendMessageToChatbot({
           question_answers: questionAnswers,
-        }); // send questionAnswers to API
-
+        });// send questionAnswers to API
+        addMessage('Well Done! Thanks for answering the questions.', 'bot');
       }
     }
 
